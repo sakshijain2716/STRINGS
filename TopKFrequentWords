@@ -1,0 +1,29 @@
+class Solution {
+public:
+    vector<string> topKFrequent(vector<string>& words, int k) {
+        int n = words.size();
+        map<string,int>mp;
+        for(auto it:words)
+        mp[it]++;
+
+        map<int,vector<string>>rev;
+        for(auto it:mp)
+        {
+            rev[it.second].push_back(it.first);
+        }  
+        vector<string>ans;
+        for(auto w=rev.rbegin();w!=rev.rend();w++)
+        {
+            // int cnt=0,i=0;
+            for(auto it:w->second)
+            {
+                ans.push_back(it);
+                if(ans.size()==k)
+                break;
+            }
+            if(ans.size()==k)
+            break;
+        } 
+        return ans;   
+    }
+};
