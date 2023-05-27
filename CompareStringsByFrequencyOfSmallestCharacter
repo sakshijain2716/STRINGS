@@ -1,0 +1,37 @@
+class Solution {
+public:
+    vector<int> numSmallerByFrequency(vector<string>& q, vector<string>& w) {
+        int n = q.size() , m = w.size();
+        vector<int> ans(n,0);
+        vector<int> fq(n),fw(m);
+
+        for(int i=0;i<n;i++)
+        {
+            string que = q[i];
+            map<char,int> mp1;
+            for(auto it:que)
+                mp1[it]++;
+            fq[i]=mp1.begin()->second;      //freq of smallest char in each q[i]
+        }    
+
+            for(int j=0;j<m;j++)
+            {
+                string word = w[j];
+                map<char,int>mp2;
+                for(auto it:word)
+                    mp2[it]++;
+                fw[j] = mp2.begin()->second;   //freq of smallest char in each words[i]
+            }
+           
+           for(int i=0;i<n;i++)      //queue
+           {
+               for(int j=0;j<m;j++)      //words
+               {
+                   if(fq[i]<fw[j])
+                   ans[i]++;
+               }
+           }
+return ans;
+        
+    }
+};
