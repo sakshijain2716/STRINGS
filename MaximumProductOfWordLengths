@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int maxProduct(vector<string>& words) {
+        int n = words.size();
+        int ans=0;
+
+        vector<int>state(n);      //stores the decimal rep of each word
+        for(int i=0;i<n;i++)
+        {
+            for(auto it:words[i])
+            state[i]  |= 1<<(it-'a');   //decimal rep of word
+
+            for(int j=0;j<i;j++)
+            {
+                if(!(state[i] & state[j]))      //if any character matches then there will be 1 at that place
+                {
+                    if(words[i].size()*words[j].size() > ans)
+                    ans = words[i].size()*words[j].size();
+                }
+
+            }
+        }
+        return ans;
+    }
+};
