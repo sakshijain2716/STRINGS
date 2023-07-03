@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int longestString(int x, int y, int z) {
+        int len = z*2;   // all ABABAB....
+        int mn = min(x,y);
+        len+=mn*4;   // aabb counts or pairs
+        x-=mn;
+        y-=mn;
+
+        if(x>0)  // remaining AA mein se ek end me BB k baad aajaega
+        len+=2;
+        if(y>0)  // remain me se ek BB strting me AB se phle aega
+        //last me BB hoga already islie last me nhi aa skta
+        len+=2;
+
+        return len;
+        
+    }
+};
