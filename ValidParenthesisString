@@ -1,0 +1,46 @@
+//Any left parenthesis '(' must have a corresponding right parenthesis ')'.
+ // Any right parenthesis ')' must have a corresponding left parenthesis '('.
+// Left parenthesis '(' must go before the corresponding right parenthesis ')'.
+// '*' could be treated as a single right parenthesis ')' or a single left parenthesis '(' or an empty string "".
+
+class Solution {
+public:
+    bool checkValidString(string s) {
+        //*( --> false    (* || *) --> true
+        //so we put indexes in stack to check the position
+        stack<int> st,star;
+
+        for(int i=0;i<s.size();i++)
+        {
+            if(s[i] == '(')
+            st.push(i);
+            else if(s[i] == '*')
+            star.push(i);
+            else
+            {
+                if(!st.empty())
+                st.pop();
+                else if(!star.empty() && star.top()<i)
+                star.pop();
+                else
+                return false;
+            }
+        }
+        if(st.empty())
+        return true;
+        else
+        {
+            while(!st.empty())
+            {
+                if(!star.empty() && st.top() < star.top())  // to balance open brackets * should be after (
+                {
+                    st.pop();
+                    star.pop();
+                }
+                else
+                return false;
+            }
+        }
+        return true;
+    }
+};
