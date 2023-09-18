@@ -1,0 +1,36 @@
+//count all possible distinct binary strings of length N such that there are no consecutive 1’s
+
+//{ Driver Code Starts
+#include <bits/stdc++.h>
+
+using namespace std;
+#define ll long long
+
+// } Driver Code Ends
+//User function template for C++
+class Solution{
+public:
+	// #define ll long long
+	ll countStrings(int n) {
+	    // code here
+	    int zeroend = 1; //'0'
+	    int oneend = 1;  //'1'
+	    ll sum = zeroend + oneend;  //'2'
+	    if(n==1)
+	    return sum;
+	    
+	    int i=2;
+	    while(i<=n)
+	    {
+	        oneend = zeroend  ;     // jinke end p 0 hai udhr 1 add krenge to no problme
+	        zeroend = sum ;    //previus jitni bhi strings thi usme 0 add krne p no prblm
+	        //chae uska end 1 se ho rha ho ya fr 0 se
+	        sum = (oneend + zeroend) % 1000000007;
+	        i++;
+	    }
+	    return sum % 1000000007;
+	}
+};
+// n==2
+//  00 , 01 , 11 , 10 ==> so 0 ham '0' and '1' dono me lga skte hai islie zeroend-> sum
+// but 1 sirf 0 end vali me lga skte h  ==> so oneend = zeroend
