@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int countBinarySubstrings(string s) {
+        int cnt=0;
+        int n = s.size();
+        int curr = 1 , prev=0;
+        //curr shows abhi kitne same hai '0' ya '1'
+        //prev shows phle vale block me kitne same the
+
+// when we encounter that s[i]!=s[i-1] we will update prev and curr; and the total substrings possible will be min(curr , prev)
+        int i=1;
+        while(i<n)
+        {
+            if(s[i]==s[i-1])
+            {
+                curr++;
+            }
+            else
+            {
+                cnt+=min(curr,prev);
+                prev = curr;
+                curr = 1;
+            }
+            i++;
+        }
+        cnt+=min(prev,curr); //for last block
+        return cnt;
+    }
+};
